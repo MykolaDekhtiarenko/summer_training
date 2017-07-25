@@ -1,5 +1,7 @@
 package com.summerschool;
 
+import java.util.ArrayList;
+
 import static java.lang.Math.random;
 
 /**
@@ -7,43 +9,57 @@ import static java.lang.Math.random;
  */
 public class Model {
 
+    private int MAX_NUMBER = 99;
+    private int MIN_NUMBER = 1;
     private int number;
-    private int attemptsCount;
-    private int[] attempts;
+    private ArrayList<Integer> attempts;
 
 
     public Model() {
-        this.number = (int)(random() * 100 + 1);
-        this.attemptsCount = 0;
-        this.attempts = new int[10];
+        this.number = (int) (random() * MAX_NUMBER);
+        this.attempts = new ArrayList();
     }
 
-    public void addAtempt(int attempt){
-        increaseArrayIfRequired();
-        attempts[attemptsCount] = attempt;
-        attemptsCount++;
+
+    public void addAtempt(int attempt) {
+        attempts.add(attempt);
+        updateBoundaries(attempt);
     }
 
     public int getNumber() {
         return number;
     }
 
-    public int[] getAttempts() {
+    public ArrayList<Integer> getAttempts() {
         return attempts;
     }
 
     public int getAttemptsCount() {
-        return attemptsCount;
+        return attempts.size();
     }
 
-    private void increaseArrayIfRequired(){
-        if(attemptsCount==attempts.length){
-            int [] tmp = new int[(attempts.length/2)*3];
-            for(int i=0; i<attempts.length; i++){
-                tmp[i] = attempts[i];
+    public int getMAX_NUMBER() {
+        return MAX_NUMBER;
+    }
+
+    public int getMIN_NUMBER() {
+        return MIN_NUMBER;
+    }
+
+    private void updateBoundaries(int attempt) {
+        if (MIN_NUMBER < attempt && attempt < MAX_NUMBER) {
+            if (MIN_NUMBER < attempt && attempt < number) {
+                MIN_NUMBER = attempt;
+            } else if (number < attempt && attempt < MAX_NUMBER) {
+                MAX_NUMBER = attempt;
+            } else {
+                //Situation when player wins
             }
-            attempts = tmp;
         }
-    }
+        else{
+            //Situation when input is out of the boundaries
+            //Check it in controller
+        }
 
+    }
 }
