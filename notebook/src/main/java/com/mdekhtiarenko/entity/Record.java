@@ -1,11 +1,12 @@
 package com.mdekhtiarenko.entity;
 
 import com.mdekhtiarenko.entity.enums.Group;
+import com.mdekhtiarenko.exeptions.NicknameAlreadyExists;
 
 /**
  * Created by mykola.dekhtiarenko on 28.07.17.
  */
-public class Record implements Comparable<Record>{
+public class Record {
     private String lastName;
     private String firstName;
     private String middleName;
@@ -69,8 +70,10 @@ public class Record implements Comparable<Record>{
         return nickname;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setNickname(String nickname, boolean isNotInNotebook) throws NicknameAlreadyExists {
+        if(isNotInNotebook)
+            this.nickname = nickname;
+        else throw new NicknameAlreadyExists();
     }
 
     public String getComment() {
@@ -154,9 +157,5 @@ public class Record implements Comparable<Record>{
                 '}';
     }
 
-    public int compareTo(Record o) {
-        if(this == o)
-            return 0;
-        return 1;
-    }
+
 }

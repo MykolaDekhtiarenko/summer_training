@@ -4,6 +4,7 @@ import com.mdekhtiarenko.entity.Address;
 import com.mdekhtiarenko.entity.Notebook;
 import com.mdekhtiarenko.entity.Record;
 import com.mdekhtiarenko.entity.enums.Group;
+import com.mdekhtiarenko.exeptions.NicknameAlreadyExists;
 import com.mdekhtiarenko.services.validators.RecordValidator;
 import com.mdekhtiarenko.views.View;
 
@@ -39,12 +40,26 @@ public class RecordService {
         }
     }
 
+
+    public void setNickname(Record record){
+        String nickname = validator.inputStringValue(view.NICKNAME, validator.NICKNAME, view.WRONG_NICKNAME);
+        try {
+            record.setNickname(nickname, !notebook.contains(nickname));
+        } catch (NicknameAlreadyExists nicknameAlreadyExists) {
+//            nicknameAlreadyExists.printStackTrace();
+            view.printWrongStringInput(view.WRONG_NICKNAME);
+            setNickname(record);
+        }
+    }
+
     public Record createRecord(Scanner scanner){
         Record record = new Record();
         record.setFirstName(validator.inputStringValue(view.FIRST_NAME, validator.FIRST_NAME, view.WRONG_FIRST_NAME));
         record.setLastName(validator.inputStringValue(view.LAST_NAME, validator.LAST_NAME, view.WRONG_LAST_NAME));
         record.setMiddleName(validator.inputStringValue(view.MIDDLE_NAME, validator.MIDDLE_NAME, view.WRONG_MIDDLE_NAME));
-        record.setNickname(validator.inputStringValue(view.NICKNAME, validator.NICKNAME, view.WRONG_NICKNAME));
+
+
+
         record.setMobilePhoneNumber(validator.inputStringValue(view.MOBILE_PHONE, validator.MOBILE_PHONE_NUMBER, view.WRONG_MOBILE_PHONE));
         record.setLandlinePhoneNumber(validator.inputStringValue(view.LANDLINE_PHONE, validator.LANDLINE_PHONE_NUMBER, view.WRONG_LANDLINE_PHONE));
 
@@ -81,6 +96,7 @@ public class RecordService {
         else
             group = Group.valueOf(strGroup);
 
+        setNickname(record);
 
         return record;
     }

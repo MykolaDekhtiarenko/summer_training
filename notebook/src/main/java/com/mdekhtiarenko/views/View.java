@@ -56,7 +56,7 @@ public class View {
 
     public static final String NICKNAME = "Create nickname: ";
     public static final String WRONG_NICKNAME = "Your nickname is invalid.";
-    public static final String EXISTING_NICKNAME = "USer with such nickname already exists!";
+    public static final String EXISTING_NICKNAME = "User with such nickname already exists! Enter another one:";
 
     public static final String COMMENT = "Comment: ";
     public static final String ASK_COMMENT = "Do you want to add comment to ths record? Print \"y\" or \"yes\" if you want to, otherwise print \"no\".";

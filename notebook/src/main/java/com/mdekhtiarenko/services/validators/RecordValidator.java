@@ -1,5 +1,6 @@
 package com.mdekhtiarenko.services.validators;
 
+import com.mdekhtiarenko.entity.Record;
 import com.mdekhtiarenko.views.View;
 
 import java.util.Scanner;

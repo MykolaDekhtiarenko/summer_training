@@ -1,5 +1,7 @@
 package com.mdekhtiarenko.entity;
 
+import com.mdekhtiarenko.exeptions.NicknameAlreadyExists;
+
 import java.util.ArrayList;
 
 /**
@@ -20,8 +22,15 @@ public class Notebook {
         this.notebook = notebook;
     }
 
-    public void addRecord(Record record){
-//        if(notebook.)
-        notebook.add(record);
+    public void addRecord(Record record) {
+      notebook.add(record);
+    }
+
+    public boolean contains(String nickname){
+        for (Record record : notebook){
+            if(record.getNickname().equalsIgnoreCase(nickname))
+                return true;
+        }
+        return false;
     }
 }
